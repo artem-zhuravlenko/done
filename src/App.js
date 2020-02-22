@@ -1,12 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react'
+import Todos from './componets/Todos'
+export default class App extends Component {
 
-function App() {
-  return (
-    <div className="App">
+  state = {
+    todos:[
+      {
+        id: 1,
+        text: "take out trash",
+        completed: false
+      },
+      {
+        id: 2,
+        text: "listen music",
+        completed: false
+      },
+      {
+        id: 3,
+        text: "Programming...",
+        completed: false
+      },
       
-    </div>
-  );
-}
+    ]
+  }
 
-export default App;
+  render() {
+    return (
+      <div className="App">
+        <Todos todos = {this.state.todos} />
+      </div>
+    );
+  }
+}
