@@ -6,17 +6,17 @@ export default class App extends Component {
     todos:[
       {
         id: 1,
-        text: "take out trash",
+        title: "take out trash",
         completed: false
       },
       {
         id: 2,
-        text: "listen music",
+        title: "listen music",
         completed: false
       },
       {
         id: 3,
-        text: "Programming...",
+        title: "Programming...",
         completed: false
       },
       
