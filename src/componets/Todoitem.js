@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import 'font-awesome/css/font-awesome.min.css';
 
 export default class Todoitem extends Component {
   getStyle = () => {
@@ -17,10 +18,10 @@ export default class Todoitem extends Component {
                  onChange={this.props.markComplete.bind(this, id)}/>
           {title}
           <button>
-            $
+          <i className="fa fa-usd"></i>
           </button>
           <button onClick={this.props.delTodo.bind(this, id)}>
-            x
+            <i className="fa fa-times"></i>
           </button>
         </p> 
       </div>
