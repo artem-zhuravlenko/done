@@ -7,17 +7,20 @@ export default class App extends Component {
       {
         id: 1,
         title: "take out trash",
-        completed: false
+        completed: false,
+        bet: 0
       },
       {
         id: 2,
         title: "listen music",
-        completed: false
+        completed: false,
+        bet: 0
       },
       {
         id: 3,
         title: "Programming...",
-        completed: false
+        completed: false,
+        bet: 0
       },
       
     ]
