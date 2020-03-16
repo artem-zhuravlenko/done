@@ -4,7 +4,6 @@ import 'font-awesome/css/font-awesome.min.css';
 export default class Todoitem extends Component {
   getStyle = () => {
     return{
-      // color: "red",
       textDecoration: this.props.todo.completed ? 'line-through' : 'none'
     }
   }

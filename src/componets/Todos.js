@@ -1,16 +1,18 @@
-import React, { Component } from 'react'
+import React, { useContext } from 'react'
 import Todoitem from './Todoitem'
+// import { FirebaseState}  from './context/firebase/FirebaseState'
+import {FirebaseContext} from './context/firebase/firebaseContext';
 
-class Todos extends Component {
-  render() {
-    // return (<p>GG</p>)
-    return this.props.todos.map((todo) => (
+
+function Todos() {
+    const {todos, markComplete, delTodo} = useContext(FirebaseContext);
+
+    return todos.map((todo) => (
       <Todoitem todo= {todo}
                 key = {todo.id}
-                markComplete = {this.props.markComplete}
-                delTodo = {this.props.delTodo}/>
+                markComplete = {markComplete}
+                delTodo = {delTodo}/>
     ));
-  }
 }
 
 export default Todos;
