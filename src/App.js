@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Todos from './componets/Todos'
+import AddTodo from './componets/AddTodo'
 export default class App extends Component {
 
   state = {
@@ -51,6 +52,7 @@ export default class App extends Component {
         <Todos todos = {this.state.todos}
                markComplete = {this.markComplete}
                delTodo = {this.delTodo} />
+        <AddTodo/>
       </div>
     );
   }
