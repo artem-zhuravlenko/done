@@ -1,9 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState, useReducer} from 'react'
 import { FirebaseContext } from "./firebaseContext"
+import { firebaseReducer } from './firebaseReducer'
 
 
 export const FirebaseState = ({children}) => {
-
   const todosArray = [
     {
       id: 1,
@@ -45,18 +45,37 @@ export const FirebaseState = ({children}) => {
     )
   };
 
+
+
+
+
+
+  const [state, dispatch] = useReducer(firebaseReducer, todosArray)
+
   const addTodo = title => {
-    setTodos(
-      [
-        ...todos,
-        {
-          id: Date.now(),
-          title: title,
-          completed: false,
-          bet: 0
-        }
-      ]
-    )
+    const payload = {
+      title: title,
+      id: Date.now(),
+      completed: false,
+      bet: 0
+    }
+
+    dispatch({
+      type: "ADD_TODO",
+      payload
+    })
+
+    // setTodos(
+    //   [
+    //     ...todos,
+    //     {
+    //       title: title,
+    //       id: Date.now(),
+    //       completed: false,
+    //       bet: 0
+    //     }
+    //   ]
+    // )
   }
   return(
     <FirebaseContext.Provider value = {{todos, markComplete, delTodo, addTodo}}>
