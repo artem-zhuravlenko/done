@@ -1,17 +1,33 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect} from 'react'
 import Todoitem from './Todoitem'
 // import { FirebaseState}  from './context/firebase/FirebaseState'
 import {FirebaseContext} from './context/firebase/firebaseContext';
 
 
 function Todos() {
+
+  const {fetchTodos} = useContext(FirebaseContext);
+
+  useEffect( () => { 
+    fetchTodos() 
+    // eslint-disable-next-line
+  }, [] );
+
     const {state} = useContext(FirebaseContext);
 
-    // console.log(state)
-    return state.map( todo => (
-      <Todoitem todo= {todo}
-                key = {todo.id}/>
-    ));
+    useEffect( () => { 
+      fetchTodos() 
+      // eslint-disable-next-line
+    }, [state] );
+
+    return state.todos.map( todo => {
+      console.log(todo);
+      
+      return (
+        <Todoitem todo= {todo}
+                  key = {todo.id}/>
+      )
+    });
 }
 
 export default Todos;

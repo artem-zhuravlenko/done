@@ -1,56 +1,64 @@
-import React, {useState, useReducer} from 'react'
+import React, {useReducer} from 'react'
 import { FirebaseContext } from "./firebaseContext"
 import { firebaseReducer } from './firebaseReducer'
-import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO } from '../../../types'
+import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, FETCH_TODOS } from '../../../types'
+import axios from 'axios'
+
+const url = process.env.REACT_APP_DB_URL
+console.log(url)
 
 export const FirebaseState = ({children}) => {
-  const todosArray = [
-    {
-      id: 1,
-      title: "take out trash",
-      completed: false,
-      bet: 0
-    },
-    {
-      id: 2,
-      title: "listen music",
-      completed: false,
-      bet: 0
-    },
-    {
-      id: 3,
-      title: "Programming...",
-      completed: false,
-      bet: 0
-    },
-  ]
+  const initialState = {
+    todos: [],
+  }
+
+  const [state, dispatch] = useReducer(firebaseReducer, initialState)
   
-  
-  const [state, dispatch] = useReducer(firebaseReducer, todosArray)
-  
-  const markComplete = (id) => {
+  const fetchTodos = async () => {
+    const res = await axios.get(`${url}/todos.json`);
+
+    const payload = Object.keys(res.data || '').map(key => {
+      return ({
+        ...res.data[key],
+        id: key
+      })
+    })
+
+    dispatch({type: FETCH_TODOS, payload})
+
+  }
+
+  const markComplete = id => {
     dispatch({
       type: TOGGLE_TODO,
-      id: id
+      id
     })
   }
   
   const delTodo = id => {
     dispatch({
       type: REMOVE_TODO,
-      id: id
+      id
     })
   };
 
-  const addTodo = title => {
+  const addTodo = async title => {
+    const todo = {
+      title,
+      id: new Date().toJSON(),
+      completed: false,
+    }
+
+    await axios.post(`${url}/todos.json`, todo);
+
     dispatch({
       type: ADD_TODO,
-      title,
+      todo,
     })
   }
 
   return(
-    <FirebaseContext.Provider value = {{state, markComplete, delTodo, addTodo}}>
+    <FirebaseContext.Provider value = {{state, markComplete, delTodo, addTodo, fetchTodos}}>
       {children}
     </FirebaseContext.Provider>
   )

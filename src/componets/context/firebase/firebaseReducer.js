@@ -1,18 +1,18 @@
-import {ADD_TODO, TOGGLE_TODO, REMOVE_TODO} from '../../../types'
+import {ADD_TODO, TOGGLE_TODO, REMOVE_TODO, FETCH_TODOS} from '../../../types'
 
 const handlers = {
-  [ADD_TODO]: (state, {title}) => [
-    ...state,
-    {
-      title,
-      completed: false,
-      id: Date.now(),
-      bet: 0
+  [ADD_TODO]: (state, todo) => {
+    return {
+      todos: [...state.todos, todo]
     }
-  ],
+  },
+
+  [FETCH_TODOS]: (state, {payload}) => ({
+    ...state, todos: payload
+  }),
 
   [TOGGLE_TODO]: (state, {id}) => (
-    state.map(todo => {
+    state.todos.map(todo => {
       if(todo.id === id ){
         todo.completed = !todo.completed;
       }
@@ -21,7 +21,7 @@ const handlers = {
   ),
 
   [REMOVE_TODO]: (state, {id}) => (
-    state.filter(todo => (todo.id !== id))
+    state.todos.filter(todo => (todo.id !== id))
   ),
 
   DEFAULT: (state) => state
