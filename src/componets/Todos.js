@@ -5,13 +5,12 @@ import {FirebaseContext} from './context/firebase/firebaseContext';
 
 
 function Todos() {
-    const {todos, markComplete, delTodo} = useContext(FirebaseContext);
+    const {state} = useContext(FirebaseContext);
 
-    return todos.map((todo) => (
+    // console.log(state)
+    return state.map( todo => (
       <Todoitem todo= {todo}
-                key = {todo.id}
-                markComplete = {markComplete}
-                delTodo = {delTodo}/>
+                key = {todo.id}/>
     ));
 }
 

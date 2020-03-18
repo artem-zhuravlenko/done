@@ -1,7 +1,7 @@
 import React, {useState, useReducer} from 'react'
 import { FirebaseContext } from "./firebaseContext"
 import { firebaseReducer } from './firebaseReducer'
-
+import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO } from '../../../types'
 
 export const FirebaseState = ({children}) => {
   const todosArray = [
@@ -24,61 +24,33 @@ export const FirebaseState = ({children}) => {
       bet: 0
     },
   ]
-
-  const [todos, setTodos] = useState(todosArray);
-
+  
+  
+  const [state, dispatch] = useReducer(firebaseReducer, todosArray)
   
   const markComplete = (id) => {
-    setTodos(
-      todos.map(todo => {
-        if(todo.id === id){
-          todo.completed = !todo.completed
-        }
-        return todo;
-      })
-    )
+    dispatch({
+      type: TOGGLE_TODO,
+      id: id
+    })
   }
   
   const delTodo = id => {
-    setTodos(
-      todos.filter(todo => todo.id !== id)
-    )
+    dispatch({
+      type: REMOVE_TODO,
+      id: id
+    })
   };
 
-
-
-
-
-
-  const [state, dispatch] = useReducer(firebaseReducer, todosArray)
-
   const addTodo = title => {
-    const payload = {
-      title: title,
-      id: Date.now(),
-      completed: false,
-      bet: 0
-    }
-
     dispatch({
-      type: "ADD_TODO",
-      payload
+      type: ADD_TODO,
+      title,
     })
-
-    // setTodos(
-    //   [
-    //     ...todos,
-    //     {
-    //       title: title,
-    //       id: Date.now(),
-    //       completed: false,
-    //       bet: 0
-    //     }
-    //   ]
-    // )
   }
+
   return(
-    <FirebaseContext.Provider value = {{todos, markComplete, delTodo, addTodo}}>
+    <FirebaseContext.Provider value = {{state, markComplete, delTodo, addTodo}}>
       {children}
     </FirebaseContext.Provider>
   )
