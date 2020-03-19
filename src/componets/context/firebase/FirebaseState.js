@@ -1,11 +1,10 @@
 import React, {useReducer} from 'react'
 import { FirebaseContext } from "./firebaseContext"
 import { firebaseReducer } from './firebaseReducer'
-import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, FETCH_TODOS } from '../../../types'
+import { ADD_TODO, FETCH_TODOS } from '../../../types'
 import axios from 'axios'
 
 const url = process.env.REACT_APP_DB_URL
-console.log(url)
 
 export const FirebaseState = ({children}) => {
   const initialState = {
@@ -28,19 +27,6 @@ export const FirebaseState = ({children}) => {
 
   }
 
-  const markComplete = id => {
-    dispatch({
-      type: TOGGLE_TODO,
-      id
-    })
-  }
-  
-  const delTodo = id => {
-    dispatch({
-      type: REMOVE_TODO,
-      id
-    })
-  };
 
   const addTodo = async title => {
     const todo = {
@@ -58,7 +44,7 @@ export const FirebaseState = ({children}) => {
   }
 
   return(
-    <FirebaseContext.Provider value = {{state, markComplete, delTodo, addTodo, fetchTodos}}>
+    <FirebaseContext.Provider value = {{state, addTodo, fetchTodos}}>
       {children}
     </FirebaseContext.Provider>
   )

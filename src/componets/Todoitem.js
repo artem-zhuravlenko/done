@@ -1,6 +1,6 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import 'font-awesome/css/font-awesome.min.css';
-import { FirebaseContext } from './context/firebase/firebaseContext';
+// import { FirebaseContext } from './context/firebase/firebaseContext';
 
 export default function Todoitem ({todo}) {
   const getStyle = () => {
@@ -11,17 +11,15 @@ export default function Todoitem ({todo}) {
 
   const {id, title} = todo;
   // console.log(id)
-  const {markComplete, delTodo} = useContext(FirebaseContext)
   return (
     <div style = {getStyle()}>
       <p>
-        <input type="checkbox" 
-                onChange={() => markComplete(id)}/>
+        <input type="checkbox" />
         {title}
         <button>
         <i className="fa fa-usd"></i>
         </button>
-        <button onClick={ () => delTodo(id)}>
+        <button >
           <i className="fa fa-times"></i>
         </button>
       </p> 

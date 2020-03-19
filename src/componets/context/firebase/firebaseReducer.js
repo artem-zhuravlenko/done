@@ -11,19 +11,6 @@ const handlers = {
     ...state, todos: payload
   }),
 
-  [TOGGLE_TODO]: (state, {id}) => (
-    state.todos.map(todo => {
-      if(todo.id === id ){
-        todo.completed = !todo.completed;
-      }
-      return todo;
-    })
-  ),
-
-  [REMOVE_TODO]: (state, {id}) => (
-    state.todos.filter(todo => (todo.id !== id))
-  ),
-
   DEFAULT: (state) => state
 }
 
