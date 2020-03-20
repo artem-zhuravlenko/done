@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import 'font-awesome/css/font-awesome.min.css';
-// import { FirebaseContext } from './context/firebase/firebaseContext';
+import { FirebaseContext } from './context/firebase/firebaseContext';
 
 export default function Todoitem ({todo}) {
+  const {delTodo, toggleTodo} = useContext(FirebaseContext);
   const getStyle = () => {
     return{
       textDecoration: todo.completed ? 'line-through' : 'none'
@@ -14,13 +15,14 @@ export default function Todoitem ({todo}) {
   return (
     <div style = {getStyle()}>
       <p>
-        <input type="checkbox" />
+        <input type="checkbox" 
+          onChange = {() => toggleTodo(id)}/>
         {title}
         <button>
         <i className="fa fa-usd"></i>
         </button>
         <button >
-          <i className="fa fa-times"></i>
+          <i className="fa fa-times" onClick ={() => delTodo(id)}></i>
         </button>
       </p> 
     </div>

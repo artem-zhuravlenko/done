@@ -8,10 +8,35 @@ const handlers = {
   },
 
   [FETCH_TODOS]: (state, {payload}) => ({
-    ...state, todos: payload
+    ...state, 
+    todos: payload
   }),
 
-  DEFAULT: (state) => state
+  [REMOVE_TODO]: (state, {payload}) =>{
+    // console.log(payload)
+    return ({
+      ...state, 
+      todos: state.todos.filter(todo => todo.id !== payload)
+    })
+  },
+
+  [TOGGLE_TODO]: (state, {payload}) => {
+    // console.log("hi")
+    return ({
+      // ...state,
+      todos: state.todos.map(todo => {
+        // console.log(todo.id + ": " + payload)
+        if(todo.id === payload){
+          // console.log(todo.id + ": " + todo.completed)
+          todo.completed = !todo.completed;
+        }
+        return todo
+      })
+    })
+  },
+
+
+  // DEFAULT: (state) => state
 }
 
 export const firebaseReducer = (state, action) => {

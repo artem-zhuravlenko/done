@@ -20,9 +20,7 @@ function Todos() {
       // eslint-disable-next-line
     }, [state] );
 
-    return state.todos.map( todo => {
-      console.log(todo);
-      
+    return state.todos.map( todo => {      
       return (
         <Todoitem todo= {todo}
                   key = {todo.id}/>
