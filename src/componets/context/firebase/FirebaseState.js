@@ -52,7 +52,11 @@ export const FirebaseState = ({children}) => {
     })
   }
 
-  const toggleTodo = async id => {      
+  const toggleTodo = async id => {    
+    await axios.get(`${url}/todos/${id}.json`) 
+    .then(async (res) => {
+      await axios.patch(`${url}/todos/${id}.json`, {completed: !res.data.completed})
+    })
 
     dispatch({
       type: TOGGLE_TODO,

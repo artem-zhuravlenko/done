@@ -16,7 +16,9 @@ export default function Todoitem ({todo}) {
     <div style = {getStyle()}>
       <p>
         <input type="checkbox" 
-          onChange = {() => toggleTodo(id)}/>
+          onChange = {() => toggleTodo(id)}
+          checked = {todo.completed}/>
+          
         {title}
         <button>
         <i className="fa fa-usd"></i>
